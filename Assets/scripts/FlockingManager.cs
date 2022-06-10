@@ -14,7 +14,10 @@ public class FlockingManager : MonoBehaviour
     public GameObject[] allFish;
 
     //distancia maxima entre os objetos
-    public Vector3 swinLimints = new Vector3 (5,5,5);
+    public Vector3 swinLimits = new Vector3 (5,5,5);
+
+    //cria um vetor para 
+    public Vector3 goalPos;
 
     //cria uma "seção" "configuração de cardume" 
     [Header("Configuração do cardume")]
@@ -47,19 +50,28 @@ public class FlockingManager : MonoBehaviour
         for (int i = 0; i < allFish.Length; i++)
         {
             //armazena uma posição para instanciar nela, com a uma distancia variada
-            Vector3 pos = this.transform.position + new Vector3(Random.Range(-swinLimints.x, swinLimints.x),
-                                                                Random.Range(-swinLimints.y, swinLimints.y),
-                                                                Random.Range(-swinLimints.z, swinLimints.z));
+            Vector3 pos = this.transform.position + new Vector3(Random.Range(-swinLimits.x, swinLimits.x),
+                                                                Random.Range(-swinLimits.y, swinLimits.y),
+                                                                Random.Range(-swinLimits.z, swinLimits.z));
             //instancia o prefab do peixe na posição armazenada em "pos"
             allFish[i] = (GameObject)Instantiate(fishPrefab, pos, Quaternion.identity);
             //pega o componente "Flock" do peixe
-            allFish[i].GetComponent<Flock>().myManeger = this;
+            allFish[i].GetComponent<Flock>().myManager = this;
         }
+        //pega a posição atual do gameobject que estiver portando esse script
+        goalPos = this.transform.position;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        //atualiza a posição do vetor
+        goalPos = this.transform.position;
+        if (Random.Range(0, 100) < 10)
+            //atualiza o vetor com os limite de posição
+            goalPos = this.transform.position + new Vector3(Random.Range(-swinLimits.x, swinLimits.x),
+                                                            Random.Range(-swinLimits.y, swinLimits.y),
+                                                            Random.Range(-swinLimits.z, swinLimits.z));
     }
 }
+
