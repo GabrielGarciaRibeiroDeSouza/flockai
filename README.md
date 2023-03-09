@@ -1,4 +1,4 @@
 # flockai
 
-Projeto de inteligência artificial na unity, utilizando o "flocking ai"
+Projeto de estudo de inteligência artificial na unity, utilizando o "flocking ai"
  
